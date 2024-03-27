@@ -1,6 +1,6 @@
-import React from 'react-dom';
+import React from 'react';
 
-class Login {
+class Login extends React.Component {
   render() {
     return (
       <div data-testid="page-login">
