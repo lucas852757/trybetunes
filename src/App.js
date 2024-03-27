@@ -1,8 +1,15 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Login from './pages/Login';
 
 class App extends React.Component {
   render() {
-    return (<p>TrybeTunes</p>);
+    // return (<p>TrybeTunes</p>);
+    return (
+      <Switch>
+        <Route path="/" component={ <Login /> } />
+      </Switch>
+    );
   }
 }
 
