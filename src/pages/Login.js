@@ -4,7 +4,7 @@ class Login extends React.Component {
   render() {
     return (
       <div data-testid="page-login">
-        <p>TrybeTunes</p>
+        {/* <p>TrybeTunes</p> */}
       </div>
     );
   }
