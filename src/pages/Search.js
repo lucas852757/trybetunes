@@ -39,6 +39,7 @@ class Search extends React.Component {
     event.preventDefault();
   }
 
+  // Bug
   async handleClick() {
     const { value, responseAPI } = this.state;
     this.setState({ buttonValue: true,
