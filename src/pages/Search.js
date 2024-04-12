@@ -1,5 +1,7 @@
 import React from 'react';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Header from '../components/Header';
+import MessageCharging from './MessageCharging';
 
 class Search extends React.Component {
   constructor() {
@@ -7,10 +9,16 @@ class Search extends React.Component {
 
     this.state = {
       buttonValue: true,
+      loading: false,
       value: '',
+      disabledInput: false,
+      responseAPI: false,
+      text: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.searchAlbums = this.searchAlbums.bind(this);
   }
 
   handleChange({ target }) {
@@ -31,8 +39,29 @@ class Search extends React.Component {
     event.preventDefault();
   }
 
+  async handleClick() {
+    const { value, responseAPI } = this.state;
+    this.setState({ buttonValue: true,
+      loading: true,
+      disabledInput: true,
+      responseAPI: await this.searchAlbums(value) });
+    // const response = await this.searchAlbums(value);
+
+    if (responseAPI) {
+      this.setState({ loading: false, text: `Resultado de álbuns de: ${value}` });
+    } else {
+      this.setState({ loading: false, text: 'Nenhum álbum foi encontrado' });
+    }
+
+    this.setState({ value: '' });
+  }
+
+  async searchAlbums(artist) {
+    await searchAlbumsAPI(artist);
+  }
+
   render() {
-    const { value, buttonValue } = this.state;
+    const { value, buttonValue, loading, disabledInput, text } = this.state;
     return (
       <>
         <div data-testid="page-search">
@@ -44,9 +73,11 @@ class Search extends React.Component {
               onChange={ (event) => this.handleChange(event) }
               data-testid="search-artist-input"
               value={ value }
+              disabled={ disabledInput }
             />
             <button
               data-testid="search-artist-button"
+              onClick={ this.handleClick }
               type="submit"
               disabled={ buttonValue }
               value="submit"
@@ -55,6 +86,10 @@ class Search extends React.Component {
             </button>
           </label>
         </form>
+        {loading && <MessageCharging />}
+        <div>
+          {text}
+        </div>
       </>
 
     );
