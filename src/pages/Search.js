@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Header from '../components/Header';
 import MessageCharging from './MessageCharging';
@@ -99,10 +100,21 @@ class Search extends React.Component {
           <div>
             {' '}
             {responseAPI.length > 0
-              ? `Resultado de álbuns de: <${artist}>`
+              ? `Resultado de álbuns de: ${artist}`
               : 'Nenhum álbum foi encontrado'}
           </div>
         )}
+        {responseAPI.map(({ collectionName, artistName, collectionId }, index) => (
+          <div key={ index }>
+            <Link
+              to={ `/album/${collectionId}` }
+              data-testid={ `link-to-album-${collectionId}` }
+            >
+              {collectionName}
+            </Link>
+            {artistName}
+          </div>
+        ))}
       </>
     );
   }
