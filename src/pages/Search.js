@@ -8,12 +8,13 @@ class Search extends React.Component {
     super();
 
     this.state = {
+      artist: '',
       buttonValue: true,
       loading: false,
       value: '',
       disabledInput: false,
-      responseAPI: false,
-      text: '',
+      responseAPI: [],
+      show: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,28 +42,33 @@ class Search extends React.Component {
 
   // Bug
   async handleClick() {
-    const { value, responseAPI } = this.state;
-    this.setState({ buttonValue: true,
-      loading: true,
+    const { value } = this.state;
+    this.setState({
+      buttonValue: true,
+      loading: false,
       disabledInput: true,
-      responseAPI: await this.searchAlbums(value) });
-    // const response = await this.searchAlbums(value);
+      show: true,
+      responseAPI: [...(await this.searchAlbums(value))],
+    });
 
-    if (responseAPI) {
-      this.setState({ loading: false, text: `Resultado de álbuns de: ${value}` });
-    } else {
-      this.setState({ loading: false, text: 'Nenhum álbum foi encontrado' });
-    }
-
-    this.setState({ value: '' });
+    this.setState({ artist: value }, () => this.setState({ value: '' }));
   }
 
-  async searchAlbums(artist) {
-    await searchAlbumsAPI(artist);
+  searchAlbums(artist) {
+    return searchAlbumsAPI(artist);
   }
 
   render() {
-    const { value, buttonValue, loading, disabledInput, text } = this.state;
+    const {
+      value,
+      buttonValue,
+      loading,
+      disabledInput,
+      responseAPI,
+      artist,
+      show,
+    } = this.state;
+
     return (
       <>
         <div data-testid="page-search">
@@ -88,11 +94,16 @@ class Search extends React.Component {
           </label>
         </form>
         {loading && <MessageCharging />}
-        <div>
-          {text}
-        </div>
-      </>
 
+        {show && (
+          <div>
+            {' '}
+            {responseAPI.length > 0
+              ? `Resultado de álbuns de: <${artist}>`
+              : 'Nenhum álbum foi encontrado'}
+          </div>
+        )}
+      </>
     );
   }
 }
