@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
 import Header from '../components/Header';
+import MusicCard from '../components/MusicCard';
 
 class Album extends React.Component {
   constructor() {
@@ -10,38 +11,47 @@ class Album extends React.Component {
     this.state = {
       artistName: '',
       collectionName: '',
+      requestHTTP: [],
     };
 
     this.handleState = this.handleState.bind(this);
   }
 
   async componentDidMount() {
-    const { match: { params: { id } } } = this.props;
+    const {
+      match: {
+        params: { id },
+      },
+    } = this.props;
 
     const result = await getMusics(id);
-    const { artistName, collectionName } = result[0];
-    this.handleState(artistName, collectionName);
+
+    this.handleState(result);
   }
 
-  handleState(artistName, collectionName) {
+  handleState(arg) {
+    const { artistName, collectionName } = arg[0];
     this.setState({
       artistName,
       collectionName,
+      requestHTTP: [...arg],
     });
   }
 
   render() {
-    const { artistName, collectionName } = this.state;
+    const { artistName, collectionName, requestHTTP } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
-        <div data-testid="album-name">
-          {collectionName}
-        </div>
-        <div data-testid="artist-name">
-          {artistName}
-        </div>
-      </div>);
+        <div data-testid="album-name">{collectionName}</div>
+        <div data-testid="artist-name">{artistName}</div>
+        {requestHTTP
+          .filter(({ wrapperType }) => wrapperType === 'track')
+          .map(({ trackName, previewUrl }, index) => (
+            <MusicCard key={ index } { ...{ trackName, previewUrl } } />
+          ))}
+      </div>
+    );
   }
 }
 
