@@ -107,8 +107,8 @@ class Search extends React.Component {
         {responseAPI.map(({ collectionName, artistName, collectionId }, index) => (
           <div key={ index }>
             <Link
-              { ...collectionId }
-              to={ { pathname: `/album/${collectionId}`, state: { collectionId } } }
+              // { ...collectionId }
+              to={ { pathname: `/album/${collectionId}` } }
               data-testid={ `link-to-album-${collectionId}` }
             >
               {collectionName}

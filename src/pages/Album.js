@@ -8,32 +8,45 @@ class Album extends React.Component {
   constructor() {
     super();
     this.state = {
-      artistName: ''
+      artistName: '',
+      collectionName: '',
     };
+
+    this.handleState = this.handleState.bind(this);
   }
 
   async componentDidMount() {
-    const { location } = this.props;
-    const { state } = location;
-    console.log(await getMusics(state.collectionId));
+    const { match: { params: { id } } } = this.props;
+
+    const result = await getMusics(id);
+    const { artistName, collectionName } = result[0];
+    this.handleState(artistName, collectionName);
+  }
+
+  handleState(artistName, collectionName) {
+    this.setState({
+      artistName,
+      collectionName,
+    });
   }
 
   render() {
-    const { location } = this.props;
-    const { state } = location;
+    const { artistName, collectionName } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
-        <div>
-          {state.collectionId}
+        <div data-testid="album-name">
+          {collectionName}
+        </div>
+        <div data-testid="artist-name">
+          {artistName}
         </div>
       </div>);
   }
 }
 
 Album.propTypes = {
-  location: PropTypes.objectOf(String).isRequired,
-  collectionId: PropTypes.string.isRequired,
+  match: PropTypes.objectOf(Object).isRequired,
 };
 
 export default Album;
