@@ -46,7 +46,7 @@ class Album extends React.Component {
         <div data-testid="album-name">{collectionName}</div>
         <div data-testid="artist-name">{artistName}</div>
         {requestHTTP
-          .filter(({ wrapperType }) => wrapperType === 'track')
+          .filter(({ kind }) => kind)
           .map(({ trackName, previewUrl }, index) => (
             <MusicCard key={ index } { ...{ trackName, previewUrl } } />
           ))}
