@@ -47,8 +47,8 @@ class Album extends React.Component {
         <div data-testid="artist-name">{artistName}</div>
         {requestHTTP
           .filter(({ kind }) => kind)
-          .map(({ trackName, previewUrl }, index) => (
-            <MusicCard key={ index } { ...{ trackName, previewUrl } } />
+          .map(({ trackName, previewUrl, trackId }, index) => (
+            <MusicCard key={ index } { ...{ trackName, previewUrl, trackId } } />
           ))}
       </div>
     );
