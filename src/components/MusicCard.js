@@ -17,10 +17,19 @@ class MusicCard extends React.Component {
   handleChange({ target }) {
     if (target.checked) {
       const { trackName, previewUrl, trackId } = this.props;
-      this.setState({
-        loading: true,
-        checked: true,
-      }, () => this.addFavoriteSong({ trackName, previewUrl, trackId }));
+      this.setState(
+        {
+          loading: true,
+          checked: true,
+        },
+        () => {
+          const MAGICNUMBER = 1000;
+          setTimeout(
+            () => this.addFavoriteSong({ trackName, previewUrl, trackId }),
+            MAGICNUMBER,
+          );
+        },
+      );
     } else {
       this.setState({
         checked: false,
@@ -28,13 +37,13 @@ class MusicCard extends React.Component {
     }
   }
 
-  addFavoriteSong(arg) {
-    const MAGICNUMBER = 3000;
-    const addedSong = addSong(arg);
-    if (addedSong) {
-      setTimeout(() => this.setState({
+  async addFavoriteSong(arg) {
+    const addedSong = await addSong(arg);
+
+    if (addedSong === 'OK') {
+      this.setState({
         loading: false,
-      }), MAGICNUMBER);
+      });
     }
   }
 
@@ -49,10 +58,7 @@ class MusicCard extends React.Component {
           <track kind="captions" />
           O seu navegador não suporta o elemento
           {' '}
-          <code>
-            audio
-
-          </code>
+          <code>audio</code>
           .
         </audio>
         <label htmlFor="Favorita">
@@ -64,7 +70,6 @@ class MusicCard extends React.Component {
           />
         </label>
       </>
-
     );
   }
 }
