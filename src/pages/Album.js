@@ -4,17 +4,21 @@ import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
+import MessageCharging from './MessageCharging';
 
 class Album extends React.Component {
   constructor() {
     super();
     this.state = {
+      loading: true,
+      show: false,
       artistName: '',
       collectionName: '',
       requestHTTP: [],
     };
 
     this.handleState = this.handleState.bind(this);
+    this.changeState = this.changeState.bind(this);
   }
 
   async componentDidMount() {
@@ -27,6 +31,7 @@ class Album extends React.Component {
     const result = await getMusics(id);
 
     this.handleState(result);
+    this.changeState();
   }
 
   handleState(arg) {
@@ -38,18 +43,29 @@ class Album extends React.Component {
     });
   }
 
+  changeState() {
+    const MAGICNUMBER = 1000;
+    setTimeout(() => this.setState({ loading: false, show: true }), MAGICNUMBER);
+  }
+
   render() {
-    const { artistName, collectionName, requestHTTP } = this.state;
+    const { artistName, collectionName, requestHTTP, show, loading } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
-        <div data-testid="album-name">{collectionName}</div>
-        <div data-testid="artist-name">{artistName}</div>
-        {requestHTTP
-          .filter(({ kind }) => kind)
-          .map(({ trackName, previewUrl, trackId }, index) => (
-            <MusicCard key={ index } { ...{ trackName, previewUrl, trackId } } />
-          ))}
+        {loading && <MessageCharging />}
+        {show && (
+          <>
+            <div data-testid="album-name">{collectionName}</div>
+            <div data-testid="artist-name">{artistName}</div>
+            {requestHTTP
+              .filter(({ kind }) => kind)
+              .map(({ trackName, previewUrl, trackId }, index) => (
+                <MusicCard key={ index } { ...{ trackName, previewUrl, trackId } } />
+              ))}
+          </>
+        )}
+
       </div>
     );
   }
