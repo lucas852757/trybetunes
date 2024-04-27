@@ -12,6 +12,17 @@ class MusicCard extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.addFavoriteSong = this.addFavoriteSong.bind(this);
+    this.changeState = this.changeState.bind(this);
+  }
+
+  componentDidMount() {
+    const { requestFavoriteSongs, trackId } = this.props;
+    const favoriteSong = requestFavoriteSongs.filter(
+      (song) => parseInt(song.trackId, 10) === trackId,
+    );
+    if (favoriteSong.length) {
+      this.changeState();
+    }
   }
 
   handleChange({ target }) {
@@ -35,6 +46,12 @@ class MusicCard extends React.Component {
         checked: false,
       });
     }
+  }
+
+  changeState() {
+    this.setState({
+      checked: true,
+    });
   }
 
   async addFavoriteSong(arg) {
@@ -78,6 +95,7 @@ MusicCard.propTypes = {
   trackName: PropTypes.string.isRequired,
   previewUrl: PropTypes.string.isRequired,
   trackId: PropTypes.number.isRequired,
+  requestFavoriteSongs: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default MusicCard;
