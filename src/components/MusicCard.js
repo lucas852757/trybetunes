@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MessageCharging from '../pages/MessageCharging';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 class MusicCard extends React.Component {
   constructor() {
@@ -26,8 +26,8 @@ class MusicCard extends React.Component {
   }
 
   handleChange({ target }) {
+    const { trackName, previewUrl, trackId } = this.props;
     if (target.checked) {
-      const { trackName, previewUrl, trackId } = this.props;
       this.setState(
         {
           loading: true,
@@ -43,7 +43,16 @@ class MusicCard extends React.Component {
       );
     } else {
       this.setState({
+        loading: true,
         checked: false,
+      }, () => {
+        const MAGICNUMBER = 1000;
+        setTimeout(() => {
+          removeSong({ trackName, previewUrl, trackId });
+          this.setState({
+            loading: false,
+          });
+        }, MAGICNUMBER);
       });
     }
   }
