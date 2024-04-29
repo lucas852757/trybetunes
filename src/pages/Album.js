@@ -55,10 +55,10 @@ class Album extends React.Component {
   }
 
   changeState() {
-    const MAGICNUMBER = 1000;
+    const TIMEOUT = 1000;
     setTimeout(
       () => this.setState({ loading: false, show: true }),
-      MAGICNUMBER,
+      TIMEOUT,
     );
   }
 

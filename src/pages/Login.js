@@ -34,13 +34,13 @@ class Login extends React.Component {
   }
 
   handleChange({ target }) {
-    const MAGICNUMBER = 3;
+    const TIMEOUT = 3;
     const { value } = target;
 
     this.setState({
       value,
     }, () => {
-      if (value.length >= MAGICNUMBER) {
+      if (value.length >= TIMEOUT) {
         this.setState({
           buttonValue: false,
         });

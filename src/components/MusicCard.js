@@ -34,10 +34,10 @@ class MusicCard extends React.Component {
           checked: true,
         },
         () => {
-          const MAGICNUMBER = 1000;
+          const TIMEOUT = 1000;
           setTimeout(
             () => this.addFavoriteSong({ trackName, previewUrl, trackId }),
-            MAGICNUMBER,
+            TIMEOUT,
           );
         },
       );
@@ -46,13 +46,13 @@ class MusicCard extends React.Component {
         loading: true,
         checked: false,
       }, () => {
-        const MAGICNUMBER = 1000;
+        const TIMEOUT = 1000;
         setTimeout(() => {
           removeSong({ trackName, previewUrl, trackId });
           this.setState({
             loading: false,
           });
-        }, MAGICNUMBER);
+        }, TIMEOUT);
       });
     }
   }

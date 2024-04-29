@@ -21,11 +21,11 @@ class Favorites extends React.Component {
   }
 
   changeStateFavoriteSongs(arg) {
-    const MAGICNUMBER = 1000;
+    const TIMEOUT = 1000;
     setTimeout(() => this.setState({
       loading: false,
       requestFavoriteSongs: [... arg],
-    }, MAGICNUMBER));
+    }), TIMEOUT);
   }
 
   render() {
