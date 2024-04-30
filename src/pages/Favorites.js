@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import MessageCharging from './MessageCharging';
 import MusicCard from '../components/MusicCard';
 
@@ -13,6 +13,7 @@ class Favorites extends React.Component {
       requestFavoriteSongs: [],
     };
     this.changeStateFavoriteSongs = this.changeStateFavoriteSongs.bind(this);
+    this.changeStateRemoveFavoriteSongs = this.changeStateRemoveFavoriteSongs.bind(this);
   }
 
   async componentDidMount() {
@@ -22,19 +23,42 @@ class Favorites extends React.Component {
 
   changeStateFavoriteSongs(arg) {
     const TIMEOUT = 1000;
-    setTimeout(() => this.setState({
-      loading: false,
-      requestFavoriteSongs: [... arg],
-    }), TIMEOUT);
+    setTimeout(
+      () => this.setState({
+        loading: false,
+        requestFavoriteSongs: [...arg],
+      }),
+      TIMEOUT,
+    );
+  }
+
+  async changeStateRemoveFavoriteSongs(arg) {
+    const { trackId } = arg;
+    removeSong({ trackId });
+    // console.log(await getFavoriteSongs());
+    // this.setState({
+    //   show: false,
+    // });
   }
 
   render() {
-    const { loading } = this.state;
+    const { loading, requestFavoriteSongs } = this.state;
     return (
       <div data-testid="page-favorites">
         <Header />
         {loading && <MessageCharging />}
-      </div>);
+        {requestFavoriteSongs.map((music, index) => (
+          <MusicCard
+            key={ index }
+            trackName={ music.trackName }
+            trackId={ music.trackId }
+            previewUrl={ music.previewUrl }
+            requestFavoriteSongs={ requestFavoriteSongs }
+            changeStateRemoveFavoriteSongs={ this.changeStateRemoveFavoriteSongs }
+          />
+        ))}
+      </div>
+    );
   }
 }
 

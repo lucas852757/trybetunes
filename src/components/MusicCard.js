@@ -8,6 +8,7 @@ class MusicCard extends React.Component {
     super();
     this.state = {
       loading: false,
+      show: true,
       checked: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -17,6 +18,8 @@ class MusicCard extends React.Component {
 
   componentDidMount() {
     const { requestFavoriteSongs, trackId } = this.props;
+    // if (typeof changeStateRemoveFavoriteSongs === 'function');
+
     const favoriteSong = requestFavoriteSongs.filter(
       (song) => parseInt(song.trackId, 10) === trackId,
     );
@@ -26,7 +29,7 @@ class MusicCard extends React.Component {
   }
 
   handleChange({ target }) {
-    const { trackName, previewUrl, trackId } = this.props;
+    const { trackName, previewUrl, trackId, changeStateRemoveFavoriteSongs } = this.props;
     if (target.checked) {
       this.setState(
         {
@@ -48,7 +51,16 @@ class MusicCard extends React.Component {
       }, () => {
         const TIMEOUT = 1000;
         setTimeout(() => {
-          removeSong({ trackName, previewUrl, trackId });
+          // removeSong({ trackName, previewUrl, trackId });
+          if (typeof changeStateRemoveFavoriteSongs === 'function') {
+            this.setState({
+              show: false,
+            }, () => changeStateRemoveFavoriteSongs({ trackId }));
+            // changeStateRemoveFavoriteSongs({ trackId });
+          } else {
+            removeSong({ trackId });
+          }
+
           this.setState({
             loading: false,
           });
@@ -75,26 +87,28 @@ class MusicCard extends React.Component {
 
   render() {
     const { trackName, previewUrl, trackId } = this.props;
-    const { checked, loading } = this.state;
+    const { checked, loading, show } = this.state;
     return (
       <>
         {loading && <MessageCharging />}
-        <div>{trackName}</div>
-        <audio data-testid="audio-component" src={ previewUrl } controls>
-          <track kind="captions" />
-          O seu navegador não suporta o elemento
-          {' '}
-          <code>audio</code>
-          .
-        </audio>
-        <label htmlFor="Favorita">
-          <input
-            data-testid={ `checkbox-music-${trackId}` }
-            type="checkbox"
-            checked={ checked }
-            onChange={ (event) => this.handleChange(event) }
-          />
-        </label>
+        {show && <div>{trackName}</div>}
+        {show && (
+          <audio data-testid="audio-component" src={ previewUrl } controls>
+            <track kind="captions" />
+            O seu navegador não suporta o elemento
+            {' '}
+            <code>audio</code>
+            .
+          </audio>)}
+        {show && (
+          <label htmlFor="Favorita">
+            <input
+              data-testid={ `checkbox-music-${trackId}` }
+              type="checkbox"
+              checked={ checked }
+              onChange={ (event) => this.handleChange(event) }
+            />
+          </label>)}
       </>
     );
   }
@@ -105,6 +119,7 @@ MusicCard.propTypes = {
   previewUrl: PropTypes.string.isRequired,
   trackId: PropTypes.number.isRequired,
   requestFavoriteSongs: PropTypes.arrayOf(Object).isRequired,
+  changeStateRemoveFavoriteSongs: PropTypes.func.isRequired,
 };
 
 export default MusicCard;
