@@ -101,11 +101,13 @@ class MusicCard extends React.Component {
             .
           </audio>)}
         {show && (
-          <label htmlFor="Favorita">
+          <label htmlFor="favorita">
+            Favorita
             <input
-              data-testid={ `checkbox-music-${trackId}` }
+              id="favorita"
               type="checkbox"
               checked={ checked }
+              data-testid={ `checkbox-music-${trackId}` }
               onChange={ (event) => this.handleChange(event) }
             />
           </label>)}
