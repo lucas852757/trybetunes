@@ -10,17 +10,19 @@ class ProfileEdit extends React.Component {
     this.state = {
       loading: true,
       show: false,
-      infoUser: {},
       valueName: '',
       valueEmail: '',
       valueDescription: '',
       valueImage: '',
+      disabled: true,
     };
 
     this.changeStateLoading = this.changeStateLoading.bind(this);
     this.changeSateUser = this.changeSateUser.bind(this);
     this.changeStateShow = this.changeStateShow.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.turnONTurnOFFButton = this.turnONTurnOFFButton.bind(this);
   }
 
   async componentDidMount() {
@@ -34,23 +36,40 @@ class ProfileEdit extends React.Component {
     if (name === 'name') {
       this.setState({
         valueName: value,
-      });
+      }, () => this.turnONTurnOFFButton());
     }
 
     if (name === 'email') {
       this.setState({
         valueEmail: value,
-      });
+      }, () => this.turnONTurnOFFButton());
     }
 
     if (name === 'description') {
       this.setState({
         valueDescription: value,
-      });
+      }, () => this.turnONTurnOFFButton());
     }
     if (name === 'image') {
       this.setState({
         valueImage: value,
+      }, () => this.turnONTurnOFFButton());
+    }
+  }
+
+  handleClick() {
+
+  }
+
+  turnONTurnOFFButton() {
+    const { valueName, valueEmail, valueImage, valueDescription } = this.state;
+    if (valueName.length && valueEmail && valueImage && valueDescription) {
+      this.setState({
+        disabled: false,
+      });
+    } else {
+      this.setState({
+        disabled: true,
       });
     }
   }
@@ -84,7 +103,9 @@ class ProfileEdit extends React.Component {
       valueEmail,
       valueDescription,
       valueImage,
+      disabled,
     } = this.state;
+
     return (
       <div data-testid="page-profile-edit">
         <Header />
@@ -129,6 +150,15 @@ class ProfileEdit extends React.Component {
             </label>
           </form>
         )}
+        <button
+          type="submit"
+          value="submit"
+          data-testid="edit-button-save"
+          onClick={ (event) => this.handleClick(event) }
+          disabled={ disabled }
+        >
+          Salvar
+        </button>
       </div>
     );
   }
