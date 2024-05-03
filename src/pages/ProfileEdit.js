@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import { getUser } from '../services/userAPI';
+import { getUser, updateUser } from '../services/userAPI';
 import MessageCharging from './MessageCharging';
 
 class ProfileEdit extends React.Component {
@@ -10,6 +10,7 @@ class ProfileEdit extends React.Component {
     this.state = {
       loading: true,
       show: false,
+      infoUser: {},
       valueName: '',
       valueEmail: '',
       valueDescription: '',
@@ -23,6 +24,7 @@ class ProfileEdit extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.turnONTurnOFFButton = this.turnONTurnOFFButton.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -34,31 +36,53 @@ class ProfileEdit extends React.Component {
   handleChange({ target }) {
     const { value, name } = target;
     if (name === 'name') {
-      this.setState({
-        valueName: value,
-      }, () => this.turnONTurnOFFButton());
+      this.setState(
+        {
+          valueName: value,
+        },
+        () => this.turnONTurnOFFButton(),
+      );
     }
 
     if (name === 'email') {
-      this.setState({
-        valueEmail: value,
-      }, () => this.turnONTurnOFFButton());
+      this.setState(
+        {
+          valueEmail: value,
+        },
+        () => this.turnONTurnOFFButton(),
+      );
     }
 
     if (name === 'description') {
-      this.setState({
-        valueDescription: value,
-      }, () => this.turnONTurnOFFButton());
+      this.setState(
+        {
+          valueDescription: value,
+        },
+        () => this.turnONTurnOFFButton(),
+      );
     }
     if (name === 'image') {
-      this.setState({
-        valueImage: value,
-      }, () => this.turnONTurnOFFButton());
+      this.setState(
+        {
+          valueImage: value,
+        },
+        () => this.turnONTurnOFFButton(),
+      );
     }
   }
 
   handleClick() {
+    const {
+      valueName: name,
+      valueEmail: email,
+      valueDescription: descrioption,
+      valueImage: image,
+    } = this.state;
+    updateUser({ name, email, descrioption, image });
+  }
 
+  handleSubmit(event) {
+    event.preventDefault();
   }
 
   turnONTurnOFFButton() {
@@ -99,6 +123,7 @@ class ProfileEdit extends React.Component {
     const {
       loading,
       show,
+      infoUser: { name, email, description, image },
       valueName,
       valueEmail,
       valueDescription,
@@ -110,8 +135,24 @@ class ProfileEdit extends React.Component {
       <div data-testid="page-profile-edit">
         <Header />
         {loading && <MessageCharging />}
+        {show && <div>{image}</div>}
         {show && (
-          <form>
+          <div>
+            Nome
+            {name}
+          </div>)}
+        {show && (
+          <div>
+            E-mail
+            {email}
+          </div>)}
+        {show && (
+          <div>
+            Descrição
+            {description}
+          </div>)}
+        {show && (
+          <form onSubmit={ (event) => this.handleSubmit(event) }>
             <label htmlFor="inputName">
               Nome
               <input
@@ -148,17 +189,17 @@ class ProfileEdit extends React.Component {
                 onChange={ (event) => this.handleChange(event) }
               />
             </label>
+            <button
+              type="submit"
+              value="submit"
+              data-testid="edit-button-save"
+              onClick={ (event) => this.handleClick(event) }
+              disabled={ disabled }
+            >
+              Salvar
+            </button>
           </form>
         )}
-        <button
-          type="submit"
-          value="submit"
-          data-testid="edit-button-save"
-          onClick={ (event) => this.handleClick(event) }
-          disabled={ disabled }
-        >
-          Salvar
-        </button>
       </div>
     );
   }
