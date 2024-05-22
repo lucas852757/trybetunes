@@ -170,6 +170,7 @@ describe('14 - Crie o formulário de edição de perfil', () => {
         { timeout: 3500 }
       );
 
+      renderPath("/profile");
       expect(screen.getByText('Editar perfil')).toBeInTheDocument();
       expect(window.location.pathname).toBe('/profile');
     });
