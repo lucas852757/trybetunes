@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MessageCharging from '../pages/MessageCharging';
 import { getUser } from '../services/userAPI';
 
