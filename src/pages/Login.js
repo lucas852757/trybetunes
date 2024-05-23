@@ -1,6 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+// import { Redirect } from 'react-router-dom';
 import * as services from '../services/userAPI';
 import MessageCharging from './MessageCharging';
 
@@ -11,7 +12,6 @@ class Login extends React.Component {
       buttonValue: true,
       value: '',
       loading: false,
-      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -23,13 +23,15 @@ class Login extends React.Component {
   }
 
   handleClick() {
+    const { history } = this.props;
     const { value } = this.state;
     services.createUser({ name: value });
 
     this.setState({
       loading: true,
     }, () => {
-      setTimeout(() => this.setState({ redirect: true }), 2000);
+      // setTimeout(() => this.setState({ redirect: true }), 2000);
+      history.push('/search');
     });
   }
 
@@ -55,7 +57,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { buttonValue, value, loading, redirect } = this.state;
+    const { buttonValue, value, loading } = this.state;
 
     return (
       <div data-testid="page-login">
@@ -81,10 +83,12 @@ class Login extends React.Component {
           </label>
         </form>
         {loading && <MessageCharging to="/search" />}
-        {redirect && <Redirect to="/search" />}
+        {/* {redirect && <Redirect to="/search" />} */}
       </div>
     );
   }
 }
-
+Login.propTypes = {
+  history: PropTypes.objectOf(String).isRequired,
+};
 export default Login;
