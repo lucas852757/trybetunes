@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getUser, updateUser } from '../services/userAPI';
 import MessageCharging from './MessageCharging';
@@ -10,11 +11,10 @@ class ProfileEdit extends React.Component {
     this.state = {
       loading: true,
       show: false,
-      infoUser: {},
-      valueName: '',
-      valueEmail: '',
-      valueDescription: '',
-      valueImage: '',
+      name: '',
+      email: '',
+      description: '',
+      image: '',
       disabled: true,
     };
 
@@ -38,7 +38,7 @@ class ProfileEdit extends React.Component {
     if (name === 'name') {
       this.setState(
         {
-          valueName: value,
+          name: value,
         },
         () => this.turnONTurnOFFButton(),
       );
@@ -47,7 +47,7 @@ class ProfileEdit extends React.Component {
     if (name === 'email') {
       this.setState(
         {
-          valueEmail: value,
+          email: value,
         },
         () => this.turnONTurnOFFButton(),
       );
@@ -56,7 +56,7 @@ class ProfileEdit extends React.Component {
     if (name === 'description') {
       this.setState(
         {
-          valueDescription: value,
+          description: value,
         },
         () => this.turnONTurnOFFButton(),
       );
@@ -64,21 +64,26 @@ class ProfileEdit extends React.Component {
     if (name === 'image') {
       this.setState(
         {
-          valueImage: value,
+          image: value,
         },
         () => this.turnONTurnOFFButton(),
       );
     }
   }
 
-  handleClick() {
+  async handleClick() {
+    const { history } = this.props;
     const {
-      valueName: name,
-      valueEmail: email,
-      valueDescription: descrioption,
-      valueImage: image,
+      name,
+      email,
+      description,
+      image,
     } = this.state;
-    updateUser({ name, email, descrioption, image });
+    const response = await updateUser({ name, email, description, image });
+
+    if (response === 'OK') {
+      history.push('/profile');
+    }
   }
 
   handleSubmit(event) {
@@ -86,8 +91,8 @@ class ProfileEdit extends React.Component {
   }
 
   turnONTurnOFFButton() {
-    const { valueName, valueEmail, valueImage, valueDescription } = this.state;
-    if (valueName.length && valueEmail && valueImage && valueDescription) {
+    const { name, email, image, description } = this.state;
+    if (name.length && email && image && description) {
       this.setState({
         disabled: false,
       });
@@ -105,9 +110,13 @@ class ProfileEdit extends React.Component {
   }
 
   changeSateUser(arg) {
+    const { name, email, image, description } = arg;
     this.setState(
       {
-        infoUser: { ...arg },
+        name,
+        email,
+        image,
+        description,
       },
       () => this.changeStateShow(),
     );
@@ -123,11 +132,10 @@ class ProfileEdit extends React.Component {
     const {
       loading,
       show,
-      infoUser: { name, email, description, image },
-      valueName,
-      valueEmail,
-      valueDescription,
-      valueImage,
+      name,
+      email,
+      description,
+      image,
       disabled,
     } = this.state;
 
@@ -158,7 +166,7 @@ class ProfileEdit extends React.Component {
               <input
                 name="name"
                 data-testid="edit-input-name"
-                value={ valueName }
+                value={ name }
                 onChange={ (event) => this.handleChange(event) }
               />
             </label>
@@ -167,7 +175,7 @@ class ProfileEdit extends React.Component {
               <input
                 data-testid="edit-input-email"
                 name="email"
-                value={ valueEmail }
+                value={ email }
                 onChange={ (event) => this.handleChange(event) }
               />
             </label>
@@ -176,7 +184,7 @@ class ProfileEdit extends React.Component {
               <input
                 name="description"
                 data-testid="edit-input-description"
-                value={ valueDescription }
+                value={ description }
                 onChange={ (event) => this.handleChange(event) }
               />
             </label>
@@ -185,7 +193,7 @@ class ProfileEdit extends React.Component {
               <input
                 data-testid="edit-input-image"
                 name="image"
-                value={ valueImage }
+                value={ image }
                 onChange={ (event) => this.handleChange(event) }
               />
             </label>
@@ -193,7 +201,7 @@ class ProfileEdit extends React.Component {
               type="submit"
               value="submit"
               data-testid="edit-button-save"
-              onClick={ (event) => this.handleClick(event) }
+              onClick={ this.handleClick }
               disabled={ disabled }
             >
               Salvar
@@ -204,5 +212,9 @@ class ProfileEdit extends React.Component {
     );
   }
 }
+
+ProfileEdit.propTypes = {
+  history: PropTypes.objectOf(String).isRequired,
+};
 
 export default ProfileEdit;
