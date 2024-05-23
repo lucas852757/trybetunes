@@ -121,7 +121,11 @@ MusicCard.propTypes = {
   previewUrl: PropTypes.string.isRequired,
   trackId: PropTypes.number.isRequired,
   requestFavoriteSongs: PropTypes.arrayOf(Object).isRequired,
-  changeStateRemoveFavoriteSongs: PropTypes.func.isRequired,
+  changeStateRemoveFavoriteSongs: PropTypes.func,
+};
+
+MusicCard.defaultProps = {
+  changeStateRemoveFavoriteSongs: undefined,
 };
 
 export default MusicCard;
