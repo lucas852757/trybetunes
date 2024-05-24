@@ -51,7 +51,7 @@ class Favorites extends React.Component {
           <MusicCard
             key={ index }
             trackName={ music.trackName }
-            trackId={ music.trackId }
+            trackId={ parseInt(music.trackId, 10) }
             previewUrl={ music.previewUrl }
             requestFavoriteSongs={ requestFavoriteSongs }
             changeStateRemoveFavoriteSongs={ this.changeStateRemoveFavoriteSongs }
