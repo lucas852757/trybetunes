@@ -95,7 +95,9 @@ class Search extends React.Component {
             </button>
           </label>
         </form>
-        {loading && <MessageCharging />}
+        <div className="loading">
+          {loading && <MessageCharging />}
+        </div>
 
         {show && (
           <div>
