@@ -17,7 +17,8 @@
  display: grid;
  grid-template-areas: 
  'username username username username username username'
- 'search search favorites favorites profile profile';
+ 'search search favorites favorites profile profile'
+ 'loading loading loading loading loading loading';
   /* text-align: center; */
 }
 
@@ -29,7 +30,13 @@
   grid-area: username;
   background-color: rgb(0, 53, 0);
   height: 70px;
-  
+ 
+}
+
+.loading {
+  grid-area: loading;
+  margin-top: 70px;
+  font-size: 25px;
 }
 
 .header-user-name {padding-top: 2px; border: solid white 1px; height: 38px; min-width: 100px; border-radius: 20px; text-align: center ; background-color: white; font-size: 12px; justify-content: center; float: right; margin-right: 20px; margin-top: 10px;}

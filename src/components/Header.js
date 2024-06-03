@@ -30,7 +30,10 @@ class Header extends React.Component {
     const { name, loading } = this.state;
     return (
       <header className="grid-container" data-testid="header-component">
-        {loading && <MessageCharging />}
+        <div className="loading">
+          {loading && <MessageCharging />}
+        </div>
+
         <div className="header-top">
           <link
             rel="stylesheet"
@@ -98,4 +101,3 @@ class Header extends React.Component {
 }
 
 export default Header;
-
