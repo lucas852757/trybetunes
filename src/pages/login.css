@@ -1,0 +1,18 @@
+.page-login-flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 15%;
+}
+
+.flex-container-form {
+  display: flex;
+  flex-direction: column;
+
+}
+
+button {
+  background-color: darkblue;
+  color: white;
+}

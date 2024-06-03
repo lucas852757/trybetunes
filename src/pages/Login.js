@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // import { Redirect } from 'react-router-dom';
 import * as services from '../services/userAPI';
 import MessageCharging from './MessageCharging';
+import './login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -27,42 +28,49 @@ class Login extends React.Component {
     const { value } = this.state;
     services.createUser({ name: value });
 
-    this.setState({
-      loading: true,
-    }, () => {
-      // setTimeout(() => this.setState({ redirect: true }), 2000);
-      history.push('/search');
-    });
+    this.setState(
+      {
+        loading: true,
+      },
+      () => {
+        // setTimeout(() => this.setState({ redirect: true }), 2000);
+        history.push('/search');
+      },
+    );
   }
 
   handleChange({ target }) {
     const TIMEOUT = 3;
     const { value } = target;
 
-    this.setState({
-      value,
-    }, () => {
-      if (value.length >= TIMEOUT) {
-        this.setState({
-          buttonValue: false,
-        });
-      } else {
-        this.setState(
-          {
+    this.setState(
+      {
+        value,
+      },
+      () => {
+        if (value.length >= TIMEOUT) {
+          this.setState({
+            buttonValue: false,
+          });
+        } else {
+          this.setState({
             buttonValue: true,
-          },
-        );
-      }
-    });
+          });
+        }
+      },
+    );
   }
 
   render() {
     const { buttonValue, value, loading } = this.state;
 
     return (
-      <div data-testid="page-login">
-        {/* <p>TrybeTunes</p> */}
-        <form onSubmit={ (event) => this.handleSubmit(event) }>
+      <div className="page-login-flex-container" data-testid="page-login">
+        <p>TrybeTunes</p>
+        <form
+          className="flex-container-form"
+          onSubmit={ (event) => this.handleSubmit(event) }
+        >
           <label htmlFor="loginForm">
             Name:
             <input
@@ -70,17 +78,17 @@ class Login extends React.Component {
               onChange={ (event) => this.handleChange(event) }
               value={ value }
             />
-            <button
-              type="submit"
-              value="submit"
-              disabled={ buttonValue }
-              data-testid="login-submit-button"
-              onClick={ this.handleClick }
-              name="loginForm"
-            >
-              Entrar
-            </button>
           </label>
+          <button
+            type="submit"
+            value="submit"
+            disabled={ buttonValue }
+            data-testid="login-submit-button"
+            onClick={ this.handleClick }
+            name="loginForm"
+          >
+            Entrar
+          </button>
         </form>
         {loading && <MessageCharging to="/search" />}
         {/* {redirect && <Redirect to="/search" />} */}
