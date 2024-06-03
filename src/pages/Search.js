@@ -103,8 +103,14 @@ class Search extends React.Component {
           <div>
             {' '}
             {responseAPI.length > 0
-              ? `Resultado de álbuns de: ${artist}`
-              : 'Nenhum álbum foi encontrado'}
+              ? (
+                <div className="found">
+                  Resultado de álbuns de:
+                  {' '}
+                  {artist}
+                </div>
+              )
+              : (<div className="notFound">Nenhum álbum foi encontrado</div>)}
           </div>
         )}
         {responseAPI.map(({ collectionName, artistName, collectionId }, index) => (

@@ -11,3 +11,13 @@
   margin-top: 25px; 
   font-size: 25px
 }
+
+.found {
+  font-size: 25px;
+  color: rgb(19, 29, 19);
+}
+.notFound {
+  font-size: 25px;
+  text-align: center;
+  color: rgb(19, 29, 19);
+}
