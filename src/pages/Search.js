@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Header from '../components/Header';
 import MessageCharging from './MessageCharging';
+import './search.css';
 
 class Search extends React.Component {
   constructor() {
@@ -75,7 +76,7 @@ class Search extends React.Component {
         <div data-testid="page-search">
           <Header />
         </div>
-        <form onSubmit={ (event) => this.handleSubmit(event) }>
+        <form className="search-form" onSubmit={ (event) => this.handleSubmit(event) }>
           <label htmlFor="searchLogin">
             <input
               onChange={ (event) => this.handleChange(event) }
