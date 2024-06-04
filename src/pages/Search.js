@@ -128,18 +128,20 @@ class Search extends React.Component {
                   <img src={ artworkUrl100 } alt={ collectionName } />
                 </Link>
                 <Link
+                  className="link"
                   // { ...collectionId }
                   to={ { pathname: `/album/${collectionId}` } }
                   data-testid={ `link-to-album-${collectionId}` }
                 >
-                  {collectionName}
+                  <p className="album">{ collectionName }</p>
                 </Link>
                 <Link
+                  className="link"
                   // { ...collectionId }
                   to={ { pathname: `/album/${collectionId}` } }
                   data-testid={ `link-to-album-${collectionId}` }
                 >
-                  {artistName}
+                  <p className="artist">{artistName}</p>
                 </Link>
               </div>
             ),
