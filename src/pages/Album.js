@@ -15,6 +15,7 @@ class Album extends React.Component {
       show: false,
       artistName: '',
       collectionName: '',
+      artworkUrl100: '',
       requestHTTP: [],
       requestFavoriteSongs: [],
     };
@@ -40,10 +41,12 @@ class Album extends React.Component {
   }
 
   handleState(arg) {
-    const { artistName, collectionName } = arg[0];
+    console.log(arg[0]);
+    const { artistName, collectionName, artworkUrl100 } = arg[0];
     this.setState({
       artistName,
       collectionName,
+      artworkUrl100,
       requestHTTP: [...arg],
     });
   }
@@ -56,16 +59,14 @@ class Album extends React.Component {
 
   changeState() {
     const TIMEOUT = 1000;
-    setTimeout(
-      () => this.setState({ loading: false, show: true }),
-      TIMEOUT,
-    );
+    setTimeout(() => this.setState({ loading: false, show: true }), TIMEOUT);
   }
 
   render() {
     const {
       artistName,
       collectionName,
+      artworkUrl100,
       requestHTTP,
       show,
       loading,
@@ -76,19 +77,31 @@ class Album extends React.Component {
         <Header />
         {loading && <MessageCharging />}
         {show && (
-          <>
-            <div data-testid="album-name">{collectionName}</div>
-            <div data-testid="artist-name">{artistName}</div>
-            {requestHTTP
-              .filter(({ kind }) => kind)
-              .map(({ trackName, previewUrl, trackId }, index) => (
-                <MusicCard
-                  key={ index }
-                  { ...{ trackName, previewUrl, trackId } }
-                  requestFavoriteSongs={ requestFavoriteSongs }
-                />
-              ))}
-          </>
+          <div
+            style={ {
+              display: 'grid',
+              gridTemplateColumns: 'auto auto',
+              justifyContent: 'space-around',
+              marginTop: '50px',
+            } }
+          >
+            <div>
+              <img src={ artworkUrl100 } alt="" />
+              <div data-testid="album-name">{collectionName}</div>
+              <div data-testid="artist-name">{artistName}</div>
+            </div>
+            <div>
+              {requestHTTP
+                .filter(({ kind }) => kind)
+                .map(({ trackName, previewUrl, trackId }, index) => (
+                  <MusicCard
+                    key={ index }
+                    { ...{ trackName, previewUrl, trackId } }
+                    requestFavoriteSongs={ requestFavoriteSongs }
+                  />
+                ))}
+            </div>
+          </div>
         )}
       </div>
     );
