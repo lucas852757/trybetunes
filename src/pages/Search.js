@@ -76,7 +76,10 @@ class Search extends React.Component {
         <div data-testid="page-search">
           <Header />
         </div>
-        <form className="search-form" onSubmit={ (event) => this.handleSubmit(event) }>
+        <form
+          className="search-form"
+          onSubmit={ (event) => this.handleSubmit(event) }
+        >
           <label htmlFor="searchLogin">
             <input
               onChange={ (event) => this.handleChange(event) }
@@ -95,36 +98,53 @@ class Search extends React.Component {
             </button>
           </label>
         </form>
-        <div className="loading">
-          {loading && <MessageCharging />}
-        </div>
+        <div className="loading">{loading && <MessageCharging />}</div>
 
         {show && (
           <div>
             {' '}
-            {responseAPI.length > 0
-              ? (
-                <div className="found">
-                  Resultado de álbuns de:
-                  {' '}
-                  {artist}
-                </div>
-              )
-              : (<div className="notFound">Nenhum álbum foi encontrado</div>)}
+            {responseAPI.length > 0 ? (
+              <div className="found">
+                Resultado de álbuns de:
+                {artist}
+              </div>
+            ) : (
+              <div className="notFound">Nenhum álbum foi encontrado</div>
+            )}
           </div>
         )}
-        {responseAPI.map(({ collectionName, artistName, collectionId }, index) => (
-          <div key={ index }>
-            <Link
-              // { ...collectionId }
-              to={ { pathname: `/album/${collectionId}` } }
-              data-testid={ `link-to-album-${collectionId}` }
-            >
-              {collectionName}
-            </Link>
-            {artistName}
-          </div>
-        ))}
+        <div className="flex-container">
+          {responseAPI.map(
+            (
+              { collectionName, artistName, collectionId, artworkUrl100 },
+              index,
+            ) => (
+              <div className="child" key={ index }>
+                <Link
+                  // { ...collectionId }
+                  to={ { pathname: `/album/${collectionId}` } }
+                  data-testid={ `link-to-album-${collectionId}` }
+                >
+                  <img src={ artworkUrl100 } alt={ collectionName } />
+                </Link>
+                <Link
+                  // { ...collectionId }
+                  to={ { pathname: `/album/${collectionId}` } }
+                  data-testid={ `link-to-album-${collectionId}` }
+                >
+                  {collectionName}
+                </Link>
+                <Link
+                  // { ...collectionId }
+                  to={ { pathname: `/album/${collectionId}` } }
+                  data-testid={ `link-to-album-${collectionId}` }
+                >
+                  {artistName}
+                </Link>
+              </div>
+            ),
+          )}
+        </div>
       </>
     );
   }
