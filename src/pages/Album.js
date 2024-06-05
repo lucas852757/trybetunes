@@ -83,10 +83,11 @@ class Album extends React.Component {
               gridTemplateColumns: 'auto auto',
               justifyContent: 'space-around',
               marginTop: '50px',
+
             } }
           >
             <div>
-              <img src={ artworkUrl100 } alt="" />
+              <img src={ artworkUrl100 } alt="" width="200" height="200" />
               <div data-testid="album-name">{collectionName}</div>
               <div data-testid="artist-name">{artistName}</div>
             </div>
