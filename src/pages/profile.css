@@ -1,0 +1,40 @@
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.name {
+  font-size: small;
+}
+
+.email {
+  font-size: small;
+}
+
+.description {
+  font-size: small;
+}
+
+.profile-edit {
+  text-decoration: none;
+  border: solid 1px;
+  border-radius: 5px 5px 5px 5px;
+  float:right;
+  background-color: rgb(1, 1, 141);
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+img {
+  float: left
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+}

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { getUser } from '../services/userAPI';
 import MessageCharging from './MessageCharging';
+import user from '../images/account_circle_24dp_FILL1_wght400_GRAD0_opsz24.svg';
+import './profile.css';
 
 class Profile extends React.Component {
   constructor() {
@@ -40,12 +42,28 @@ class Profile extends React.Component {
     return (
       <div data-testid="page-profile">
         <Header />
-        {loading && <MessageCharging />}
-        <div>{name}</div>
-        <div>{email}</div>
-        <img data-testid="profile-image" src={ image } alt="" />
-        <div>{description}</div>
-        <Link to="/profile/edit">Editar perfil</Link>
+        <div className="loading">
+          <div>
+            {loading && <MessageCharging />}
+          </div>
+        </div>
+
+        <div className="flex-container">
+          {!loading && (
+            <>
+              <img src={ user } alt="" height="48" width="48" />
+              <p>Nome</p>
+              <div className="name">{name}</div>
+              <p>E-mail</p>
+              <div className="email">{email}</div>
+              <img data-testid="profile-image" src={ image } alt="" />
+              <p>Descrição:</p>
+              <div>{description}</div>
+              <Link className="profile-edit" to="/profile/edit">Editar perfil</Link>
+            </>)}
+
+        </div>
+
       </div>);
   }
 }
