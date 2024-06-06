@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import { getUser } from '../services/userAPI';
 import MessageCharging from './MessageCharging';
 import user from '../images/account_circle_24dp_FILL1_wght400_GRAD0_opsz24.svg';
-import './profile.css';
+// import './profile.css';
 
 class Profile extends React.Component {
   constructor() {
@@ -48,18 +48,56 @@ class Profile extends React.Component {
           </div>
         </div>
 
-        <div className="flex-container">
+        <div
+          style={ {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+          } }
+        >
           {!loading && (
             <>
               <img src={ user } alt="" height="48" width="48" />
               <p>Nome</p>
-              <div className="name">{name}</div>
+              <div
+                style={ {
+                  fontSize: 'small',
+                } }
+              >
+                {name}
+              </div>
               <p>E-mail</p>
-              <div className="email">{email}</div>
+              <div
+                style={ {
+                  fontSize: 'small',
+                } }
+              >
+                {email}
+              </div>
               <img data-testid="profile-image" src={ image } alt="" />
               <p>Descrição:</p>
-              <div>{description}</div>
-              <Link className="profile-edit" to="/profile/edit">Editar perfil</Link>
+              <div
+                style={ {
+                  fontSize: 'small',
+                } }
+              >
+                {description}
+              </div>
+              <Link
+                style={ {
+                  textDecoration: 'none',
+                  border: 'solid blue 1px',
+                  backgroundColor: 'blue',
+                  color: 'white',
+                  borderRadius: '5px 5px 5px 5px',
+                  paddingLeft: '5px',
+                  paddingRight: '5px',
+                } }
+                to="/profile/edit"
+              >
+                Editar perfil
+              </Link>
             </>)}
 
         </div>
