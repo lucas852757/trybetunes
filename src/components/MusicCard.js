@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MessageCharging from '../pages/MessageCharging';
 import { addSong, removeSong } from '../services/favoriteSongsAPI';
+import './musicCard.css';
 
 class MusicCard extends React.Component {
   constructor() {
@@ -91,26 +92,40 @@ class MusicCard extends React.Component {
     return (
       <>
         {loading && <MessageCharging />}
-        {show && <div>{trackName}</div>}
-        {show && (
-          <audio data-testid="audio-component" src={ previewUrl } controls>
-            <track kind="captions" />
-            O seu navegador não suporta o elemento
-            {' '}
-            <code>audio</code>
-            .
-          </audio>)}
-        {show && (
-          <label htmlFor="favorita">
-            Favorita
-            <input
-              id="favorita"
-              type="checkbox"
-              checked={ checked }
-              data-testid={ `checkbox-music-${trackId}` }
-              onChange={ (event) => this.handleChange(event) }
-            />
-          </label>)}
+        <div>
+          {/* {show && <div>{trackName}</div>} */}
+          {show && (
+            <div className="flex-container">
+              <div className="child">{trackName}</div>
+              <div>
+                <audio data-testid="audio-component" src={ previewUrl } controls>
+                  <track kind="captions" />
+                  O seu navegador não suporta o elemento
+                  {' '}
+                  <code>audio</code>
+                  .
+                </audio>
+              </div>
+
+              {show && (
+                <div className="label">
+                  <label htmlFor="favorita">
+                    Favorita
+                    <input
+                      id="favorita"
+                      type="checkbox"
+                      checked={ checked }
+                      data-testid={ `checkbox-music-${trackId}` }
+                      onChange={ (event) => this.handleChange(event) }
+                    />
+                  </label>
+                </div>
+              )}
+            </div>
+          )}
+
+        </div>
+
       </>
     );
   }
