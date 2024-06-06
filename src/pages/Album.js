@@ -6,6 +6,7 @@ import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import MessageCharging from './MessageCharging';
+import './album.css';
 
 class Album extends React.Component {
   constructor() {
@@ -75,7 +76,10 @@ class Album extends React.Component {
     return (
       <div data-testid="page-album">
         <Header />
-        {loading && <MessageCharging />}
+        <div className="loading">
+          {loading && <MessageCharging />}
+        </div>
+
         {show && (
           <div
             style={ {
