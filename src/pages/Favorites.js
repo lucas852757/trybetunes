@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import { getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import MessageCharging from './MessageCharging';
 import MusicCard from '../components/MusicCard';
+import './favorites.css';
 
 class Favorites extends React.Component {
   constructor() {
@@ -47,6 +48,7 @@ class Favorites extends React.Component {
       <div data-testid="page-favorites">
         <Header />
         {loading && <MessageCharging />}
+        <p>Músicas favoritas:</p>
         {requestFavoriteSongs.map((music, index) => (
           <MusicCard
             key={ index }
