@@ -113,19 +113,24 @@ class Search extends React.Component {
             )}
           </div>
         )}
-        <div className="flex-container">
+        <div className="flex-container-search">
           {responseAPI.map(
             (
               { collectionName, artistName, collectionId, artworkUrl100 },
               index,
             ) => (
-              <div className="child" key={ index }>
+              <div className="flex-child-container" key={ index }>
                 <Link
                   // { ...collectionId }
                   to={ { pathname: `/album/${collectionId}` } }
                   data-testid={ `link-to-album-${collectionId}` }
                 >
-                  <img src={ artworkUrl100 } alt={ collectionName } />
+                  <img
+                    src={ artworkUrl100 }
+                    alt={ collectionName }
+                    height="200"
+                    width="200"
+                  />
                 </Link>
                 <Link
                   className="link"
@@ -133,7 +138,7 @@ class Search extends React.Component {
                   to={ { pathname: `/album/${collectionId}` } }
                   data-testid={ `link-to-album-${collectionId}` }
                 >
-                  <p className="album">{ collectionName }</p>
+                  <p className="album">{collectionName}</p>
                 </Link>
                 <Link
                   className="link"

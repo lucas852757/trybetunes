@@ -1,3 +1,4 @@
+
 .search-form {
   display: flex;
   align-items: center;
@@ -23,15 +24,17 @@
   color: rgb(19, 29, 19);
 }
 
-.flex-container {
+.flex-container-search {
   display: flex;
   flex-wrap: wrap;
-  
 }
 
-.child {
+.flex-child-container {
+  display: flex;
+  flex-direction: column;
   margin: 10px;
-  width: 200px;
+  justify-content:stretch;
+  align-items: center;
 }
 
 .link {
@@ -44,8 +47,10 @@
 
 .album {
   font-size:medium;
+  width: 200px;
 }
 
 .artist {
   font-size: small;
+  width: 200px;
 }
