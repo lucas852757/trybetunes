@@ -95,7 +95,7 @@ class MusicCard extends React.Component {
         <div>
           {/* {show && <div>{trackName}</div>} */}
           {show && (
-            <div className="flex-container">
+            <div className="flex-container-music">
               <div className="child">{trackName}</div>
               <div>
                 <audio data-testid="audio-component" src={ previewUrl } controls>
