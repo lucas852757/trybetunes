@@ -1,0 +1,38 @@
+.center-profile-edit {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-profile-edit {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+ 
+}
+
+.profile-name {
+  margin-left: 0;
+}
+
+.profile-email {
+  margin-left: 0;
+}
+
+.profile-description {
+  margin-left: 0;
+}
+
+.profile-image {
+  margin-left: 0;
+}
+
+.profile-edit-button {
+  margin-top: 10px;
+  width: 100px;
+  height: 30px;
+  border: 1px solid blue;
+}

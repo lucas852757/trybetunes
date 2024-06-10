@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getUser, updateUser } from '../services/userAPI';
 import MessageCharging from './MessageCharging';
+import './profileEdit.css';
 
 class ProfileEdit extends React.Component {
   constructor() {
@@ -73,12 +74,7 @@ class ProfileEdit extends React.Component {
 
   async handleClick() {
     const { history } = this.props;
-    const {
-      name,
-      email,
-      description,
-      image,
-    } = this.state;
+    const { name, email, description, image } = this.state;
     const response = await updateUser({ name, email, description, image });
 
     if (response === 'OK') {
@@ -129,15 +125,7 @@ class ProfileEdit extends React.Component {
   }
 
   render() {
-    const {
-      loading,
-      show,
-      name,
-      email,
-      description,
-      image,
-      disabled,
-    } = this.state;
+    const { loading, show, name, email, description, image, disabled } = this.state;
 
     return (
       <div data-testid="page-profile-edit">
@@ -148,56 +136,66 @@ class ProfileEdit extends React.Component {
           <div>
             Nome
             {name}
-          </div>)}
+          </div>
+        )}
         {show && (
           <div>
             E-mail
             {email}
-          </div>)}
+          </div>
+        )}
         {show && (
           <div>
             Descrição
             {description}
-          </div>)}
+          </div>
+        )}
         {show && (
-          <form onSubmit={ (event) => this.handleSubmit(event) }>
-            <label htmlFor="inputName">
-              Nome
-              <input
-                name="name"
-                data-testid="edit-input-name"
-                value={ name }
-                onChange={ (event) => this.handleChange(event) }
-              />
-            </label>
-            <label htmlFor="inputEmail">
-              Email
-              <input
-                data-testid="edit-input-email"
-                name="email"
-                value={ email }
-                onChange={ (event) => this.handleChange(event) }
-              />
-            </label>
-            <label htmlFor="inputDescription">
-              Descrição
-              <input
-                name="description"
-                data-testid="edit-input-description"
-                value={ description }
-                onChange={ (event) => this.handleChange(event) }
-              />
-            </label>
-            <label htmlFor="image">
-              Imgem
-              <input
-                data-testid="edit-input-image"
-                name="image"
-                value={ image }
-                onChange={ (event) => this.handleChange(event) }
-              />
-            </label>
+          <div className="center-profile-edit">
+            <form
+              className="form-profile-edit"
+              onSubmit={ (event) => this.handleSubmit(event) }
+            >
+              <label htmlFor="inputName">
+                <p className="profile-name">Nome</p>
+                <input
+                  name="name"
+                  data-testid="edit-input-name"
+                  value={ name }
+                  onChange={ (event) => this.handleChange(event) }
+                />
+              </label>
+              <label htmlFor="inputEmail">
+                <p className="profile-email">E-mail</p>
+                <input
+                  data-testid="edit-input-email"
+                  name="email"
+                  value={ email }
+                  onChange={ (event) => this.handleChange(event) }
+                />
+              </label>
+              <label htmlFor="inputDescription">
+                <p className="profile-description">Descrição</p>
+                <input
+                  name="description"
+                  data-testid="edit-input-description"
+                  value={ description }
+                  onChange={ (event) => this.handleChange(event) }
+                />
+              </label>
+              <label htmlFor="image">
+                <p className="profile-image">Imagem</p>
+                <input
+                  data-testid="edit-input-image"
+                  name="image"
+                  value={ image }
+                  onChange={ (event) => this.handleChange(event) }
+                />
+              </label>
+            </form>
+            {' '}
             <button
+              className="profile-edit-button"
               type="submit"
               value="submit"
               data-testid="edit-button-save"
@@ -206,7 +204,7 @@ class ProfileEdit extends React.Component {
             >
               Salvar
             </button>
-          </form>
+          </div>
         )}
       </div>
     );
