@@ -38,44 +38,39 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { loading, infoUser: { name, email, image, description } } = this.state;
+    const {
+      loading,
+      infoUser,
+    } = this.state;
     return (
       <div data-testid="page-profile">
         <Header />
         <div className="loading">
-          <div>
-            {loading && <MessageCharging />}
-          </div>
+          <div>{loading && <MessageCharging />}</div>
         </div>
-
-        <div className="flex-container-profile">
-          {!loading && (
-            <>
-              <img src={ user } alt="" height="48" width="48" />
+        {!loading && (
+          <div className="center-flex-container-profile">
+            <div>
+              <div>
+                {infoUser.image ? (
+                  <img data-testid="profile-image" src={ infoUser.image } alt="" />
+                ) : (
+                  <img src={ user } alt="" height="48" width="48" />
+                )}
+              </div>
               <p>Nome</p>
-              <div className="name">
-                {name}
-              </div>
+              <p className="name">{infoUser.name}</p>
               <p>E-mail</p>
-              <div className="email">
-                {email}
-              </div>
-              <img data-testid="profile-image" src={ image } alt="" />
-              <p>Descrição:</p>
-              <div className="description">
-                {description}
-              </div>
-              <Link
-                className="profile-edit"
-                to="/profile/edit"
-              >
-                Editar perfil
-              </Link>
-            </>)}
+              <p className="email">{infoUser.email}</p>
+              <p>Descrição</p>
+              <p className="description">{infoUser.description}</p>
+            </div>
+            <Link className="profile-edit" to="/profile/edit">Editar perfil</Link>
+          </div>
 
-        </div>
-
-      </div>);
+        )}
+      </div>
+    );
   }
 }
 
