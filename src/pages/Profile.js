@@ -38,10 +38,7 @@ class Profile extends React.Component {
   }
 
   render() {
-    const {
-      loading,
-      infoUser,
-    } = this.state;
+    const { loading, infoUser } = this.state;
     return (
       <div data-testid="page-profile">
         <Header />
@@ -51,9 +48,13 @@ class Profile extends React.Component {
         {!loading && (
           <div className="center-flex-container-profile">
             <div>
-              <div>
+              <div style={ { display: 'flex', justifyContent: 'center' } }>
                 {infoUser.image ? (
-                  <img data-testid="profile-image" src={ infoUser.image } alt="" />
+                  <img
+                    data-testid="profile-image"
+                    src={ infoUser.image }
+                    alt=""
+                  />
                 ) : (
                   <img src={ user } alt="" height="48" width="48" />
                 )}
@@ -63,11 +64,14 @@ class Profile extends React.Component {
               <p>E-mail</p>
               <p className="email">{infoUser.email}</p>
               <p>Descrição</p>
-              <p className="description">{infoUser.description}</p>
+              <p>{infoUser.description}</p>
             </div>
-            <Link className="profile-edit" to="/profile/edit">Editar perfil</Link>
+            <div>
+              <Link className="flex-link profile-edit" to="/profile/edit">
+                Editar perfil
+              </Link>
+            </div>
           </div>
-
         )}
       </div>
     );
