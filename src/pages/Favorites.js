@@ -48,7 +48,7 @@ class Favorites extends React.Component {
       <div data-testid="page-favorites">
         <Header />
         {loading && <MessageCharging />}
-        <p>Músicas favoritas:</p>
+        <p className="music">Músicas favoritas:</p>
         {requestFavoriteSongs.map((music, index) => (
           <MusicCard
             key={ index }
