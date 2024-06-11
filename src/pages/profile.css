@@ -6,6 +6,16 @@
   flex-direction: column;
 } 
 
+.center-flex-container-image {
+  display: flex;
+  justify-content: center;
+}
+
+.img-48 {
+  border: solid 1px burlywood;
+  border-radius: 30px 30px 30px 30px;
+}
+
 .name {
   font-size: small;
 }

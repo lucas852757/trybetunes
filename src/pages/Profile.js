@@ -48,12 +48,15 @@ class Profile extends React.Component {
         {!loading && (
           <div className="center-flex-container-profile">
             <div>
-              <div style={ { display: 'flex', justifyContent: 'center' } }>
+              <div className="center-flex-container-image">
                 {infoUser.image ? (
                   <img
+                    className="img-48"
                     data-testid="profile-image"
                     src={ infoUser.image }
                     alt=""
+                    height="48"
+                    width="48"
                   />
                 ) : (
                   <img src={ user } alt="" height="48" width="48" />
