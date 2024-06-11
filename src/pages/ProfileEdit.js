@@ -23,6 +23,7 @@ class ProfileEdit extends React.Component {
     this.changeSateUser = this.changeSateUser.bind(this);
     this.changeStateShow = this.changeStateShow.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    // this.handleFileChange = this.handleFileChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.turnONTurnOFFButton = this.turnONTurnOFFButton.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -71,6 +72,16 @@ class ProfileEdit extends React.Component {
       );
     }
   }
+  // This code gets the file from the operating system .
+  // handleFileChange({ target }) {
+  //   const { files } = target;
+  //   const file = URL.createObjectURL(files[0]);
+  //   this.setState(
+  //     {
+  //       image: file,
+  //     },
+  //   );
+  // }
 
   async handleClick() {
     const { history } = this.props;
@@ -192,6 +203,14 @@ class ProfileEdit extends React.Component {
                   onChange={ (event) => this.handleChange(event) }
                 />
               </label>
+              {/* <label htmlFor="image1">
+                <input
+                  data-testid="select-image-to-upload"
+                  name="image1"
+                  onChange={ (event) => this.handleFileChange(event) }
+                  type="file"
+                />
+              </label> */}
             </form>
             {' '}
             <button
