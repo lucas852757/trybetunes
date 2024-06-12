@@ -113,7 +113,7 @@ class Search extends React.Component {
             )}
           </div>
         )}
-        <div className="flex-container-search">
+        <main className="flex-container-search">
           {responseAPI.map(
             (
               { collectionName, artistName, collectionId, artworkUrl100 },
@@ -151,7 +151,7 @@ class Search extends React.Component {
               </div>
             ),
           )}
-        </div>
+        </main>
       </>
     );
   }

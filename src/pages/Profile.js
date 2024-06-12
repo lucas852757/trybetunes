@@ -45,37 +45,40 @@ class Profile extends React.Component {
         <div className="loading">
           <div>{loading && <MessageCharging />}</div>
         </div>
-        {!loading && (
-          <div className="center-flex-container-profile">
-            <div>
-              <div className="center-flex-container-image">
-                {infoUser.image ? (
-                  <img
-                    className="img-48"
-                    data-testid="profile-image"
-                    src={ infoUser.image }
-                    alt=""
-                    height="48"
-                    width="48"
-                  />
-                ) : (
-                  <img src={ user } alt="" height="48" width="48" />
-                )}
+        <main>
+          {!loading && (
+            <div className="center-flex-container-profile">
+              <div>
+                <div className="center-flex-container-image">
+                  {infoUser.image ? (
+                    <img
+                      className="img-48"
+                      data-testid="profile-image"
+                      src={ infoUser.image }
+                      alt=""
+                      height="48"
+                      width="48"
+                    />
+                  ) : (
+                    <img src={ user } alt="" height="48" width="48" />
+                  )}
+                </div>
+                <p>Nome</p>
+                <p className="name">{infoUser.name}</p>
+                <p>E-mail</p>
+                <p className="email">{infoUser.email}</p>
+                <p>Descrição</p>
+                <p>{infoUser.description}</p>
               </div>
-              <p>Nome</p>
-              <p className="name">{infoUser.name}</p>
-              <p>E-mail</p>
-              <p className="email">{infoUser.email}</p>
-              <p>Descrição</p>
-              <p>{infoUser.description}</p>
+              <div>
+                <Link className="flex-link profile-edit" to="/profile/edit">
+                  Editar perfil
+                </Link>
+              </div>
             </div>
-            <div>
-              <Link className="flex-link profile-edit" to="/profile/edit">
-                Editar perfil
-              </Link>
-            </div>
-          </div>
-        )}
+          )}
+        </main>
+
       </div>
     );
   }

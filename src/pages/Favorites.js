@@ -48,17 +48,20 @@ class Favorites extends React.Component {
       <div data-testid="page-favorites">
         <Header />
         {loading && <MessageCharging />}
-        <p className="music">Músicas favoritas:</p>
-        {requestFavoriteSongs.map((music, index) => (
-          <MusicCard
-            key={ index }
-            trackName={ music.trackName }
-            trackId={ parseInt(music.trackId, 10) }
-            previewUrl={ music.previewUrl }
-            requestFavoriteSongs={ requestFavoriteSongs }
-            changeStateRemoveFavoriteSongs={ this.changeStateRemoveFavoriteSongs }
-          />
-        ))}
+        <main>
+          <p className="music">Músicas favoritas:</p>
+          {requestFavoriteSongs.map((music, index) => (
+            <MusicCard
+              key={ index }
+              trackName={ music.trackName }
+              trackId={ parseInt(music.trackId, 10) }
+              previewUrl={ music.previewUrl }
+              requestFavoriteSongs={ requestFavoriteSongs }
+              changeStateRemoveFavoriteSongs={ this.changeStateRemoveFavoriteSongs }
+            />
+          ))}
+        </main>
+
       </div>
     );
   }

@@ -65,7 +65,7 @@ class Login extends React.Component {
     const { buttonValue, value, loading } = this.state;
 
     return (
-      <div className="page-login-flex-container" data-testid="page-login">
+      <main className="page-login-flex-container" data-testid="page-login">
         <p>TrybeTunes</p>
         <form
           className="flex-container-form"
@@ -92,7 +92,7 @@ class Login extends React.Component {
         </form>
         {loading && <MessageCharging to="/search" />}
         {/* {redirect && <Redirect to="/search" />} */}
-      </div>
+      </main>
     );
   }
 }

@@ -81,7 +81,7 @@ class Album extends React.Component {
         </div>
 
         {show && (
-          <div
+          <main
             style={ {
               display: 'grid',
               gridTemplateColumns: 'auto auto',
@@ -106,7 +106,7 @@ class Album extends React.Component {
                   />
                 ))}
             </div>
-          </div>
+          </main>
         )}
       </div>
     );

@@ -148,7 +148,7 @@ class ProfileEdit extends React.Component {
         </div>
 
         {show && (
-          <div className="center-profile-edit">
+          <main className="center-profile-edit">
             <form
               className="form-profile-edit"
               onSubmit={ (event) => this.handleSubmit(event) }
@@ -217,7 +217,7 @@ class ProfileEdit extends React.Component {
             >
               Salvar
             </button>
-          </div>
+          </main>
         )}
       </div>
     );
