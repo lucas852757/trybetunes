@@ -72,15 +72,14 @@ class ProfileEdit extends React.Component {
       );
     }
   }
+
   // This code gets the file from the operating system .
   // handleFileChange({ target }) {
   //   const { files } = target;
   //   const file = URL.createObjectURL(files[0]);
-  //   this.setState(
-  //     {
-  //       image: file,
-  //     },
-  //   );
+  //   this.setState({
+  //     image: file,
+  //   });
   // }
 
   async handleClick() {
@@ -141,68 +140,63 @@ class ProfileEdit extends React.Component {
     return (
       <div data-testid="page-profile-edit">
         <Header />
-        {loading && <MessageCharging />}
-        {show && <div>{image}</div>}
-        {show && (
-          <div>
-            Nome
-            {name}
+        <div className="profile-edit-loading-center">
+          <div className="profile-edit-loading">
+            {loading && <MessageCharging />}
           </div>
-        )}
-        {show && (
-          <div>
-            E-mail
-            {email}
-          </div>
-        )}
-        {show && (
-          <div>
-            Descrição
-            {description}
-          </div>
-        )}
+
+        </div>
+
         {show && (
           <div className="center-profile-edit">
             <form
               className="form-profile-edit"
               onSubmit={ (event) => this.handleSubmit(event) }
             >
-              <label htmlFor="inputName">
-                <p className="profile-name">Nome</p>
-                <input
-                  name="name"
-                  data-testid="edit-input-name"
-                  value={ name }
-                  onChange={ (event) => this.handleChange(event) }
+              <div className="img-48-profile-edit-center">
+                <img
+                  className="img-48-profile-eidt"
+                  src={ image }
+                  alt=""
+                  height="48"
+                  width="48"
                 />
-              </label>
-              <label htmlFor="inputEmail">
-                <p className="profile-email">E-mail</p>
-                <input
-                  data-testid="edit-input-email"
-                  name="email"
-                  value={ email }
-                  onChange={ (event) => this.handleChange(event) }
-                />
-              </label>
-              <label htmlFor="inputDescription">
-                <p className="profile-description">Descrição</p>
-                <input
-                  name="description"
-                  data-testid="edit-input-description"
-                  value={ description }
-                  onChange={ (event) => this.handleChange(event) }
-                />
-              </label>
-              <label htmlFor="image">
-                <p className="profile-image">Imagem</p>
-                <input
-                  data-testid="edit-input-image"
-                  name="image"
-                  value={ image }
-                  onChange={ (event) => this.handleChange(event) }
-                />
-              </label>
+              </div>
+
+              <p>Imagem</p>
+              <input
+                className="profile-edit-image-input"
+                data-testid="edit-input-image"
+                name="image"
+                value={ image }
+                onChange={ (event) => this.handleChange(event) }
+              />
+              <p>Nome</p>
+              <input
+                className="profile-edit-name-input"
+                data-testid="edit-input-name"
+                name="name"
+                value={ name }
+                onChange={ (event) => this.handleChange(event) }
+              />
+              <p>E-mail</p>
+              <input
+                className="profile-edit-email-input"
+                data-testid="edit-input-email"
+                name="email"
+                value={ email }
+                onChange={ (event) => this.handleChange(event) }
+                placeholder="user@user.com"
+              />
+              <p>Descrição</p>
+              <textarea
+                className="profile-description-textarea"
+                name="description"
+                data-testid="edit-input-description"
+                value={ description }
+                onChange={ (event) => this.handleChange(event) }
+                rows="4"
+              />
               {/* <label htmlFor="image1">
                 <input
                   data-testid="select-image-to-upload"
@@ -210,7 +204,7 @@ class ProfileEdit extends React.Component {
                   onChange={ (event) => this.handleFileChange(event) }
                   type="file"
                 />
-              </label> */}
+              </label>  */}
             </form>
             {' '}
             <button
