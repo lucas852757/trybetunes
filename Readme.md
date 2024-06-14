@@ -25,7 +25,7 @@ cd diretorio-raiz-do-projeto/
 ```
 3. Instale as dependências do projeto utilizando o npm:
 ```
-npm instal
+npm install
 ```
 
 ## Executando a aplicação
